@@ -1,0 +1,1 @@
+# meilisearch-on-aws-lambda
