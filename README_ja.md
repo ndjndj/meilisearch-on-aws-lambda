@@ -14,15 +14,27 @@ Meilisearch とは、Meili 社および多くの Contributor によって開発�
 
 ## Notice
 
-以下の AWS サービスを利用することにより、
-Meilisearch のインデックスを Amazon EFS に保存するため
-作成する Meilisearch のインデックスサイズ、インデックス作成の頻度により、AWS に対する利用料金がかかります。
+以下の AWS サービスを利用することにより、$1 未満～ の利用料金が発生することに注意してください。  
+作成する Meilisearch のインデックスサイズ、インデックス作成の頻度により、AWS に対する利用料金は変わります。
+
+細かい利用料金に関しては、該当のページもしくは Amazon Calc をご覧ください。
+
+- [Amazon EFS](https://aws.amazon.com/jp/efs/pricing/)
+    - Meilisearch インデックスの保管場所として。
+- [Amazon EC2](https://aws.amazon.com/jp/ec2/pricing/) (option)
+    - Meilisearch インデックスを Amazon EFS に転送するため。
+- [AWS DataSync](https://aws.amazon.com/jp/datasync/pricing/) (option)
+    - Meilisearch インデックスを Amazon EFS に転送するため。
 
 ## Cannot in this case 
 
-- リアルタイムでのインデックス作成
+- リアルタイムで Meilisearch インデックスとメイン DB を同期させたい場合
     - ex. DynamoDB ストリームを利用したインデックス作成
 
+## Suitable case 
+
+- 更新頻度が低いデータを Meilisearch インデックスとする場合
+    - ex. 
 
 ## Why use serverless?
 
