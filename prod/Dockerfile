@@ -1,6 +1,7 @@
 FROM gcr.io/distroless/cc-debian12:latest AS cc
 FROM alpine:3.16
 
+# Lambda Web Adapter
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.7.0 /lambda-adapter /opt/extensions/lambda-adapter
 
 # for execute meilisearch

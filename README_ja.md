@@ -26,8 +26,8 @@ Meilisearch とは、Meili 社および多くの Contributor によって開発�
 
 ## Why use serverless?
 
-全文検索エンジンを導入したいと考えたとき、  
-最初に思い浮かぶのは、Meilisearch Cloud, Algolia のようなクラウドサービスを導入することか、もしくは、セルフホスティング可能な全文検索エンジンを自分が管理するサーバー上にホストすることでしょうか。  
+全文検索エンジンを導入したいと考えたとき、どのような手段を考えるでしょうか。
+一つは、Meilisearch Cloud, Algolia のようなクラウドサービスを導入することで、もう一つは、全文検索エンジンをセルフホスティングすることでしょうか。  
 どちらにしても、いくらかのランニングコストを支払う必要があります。
 
 しかし、全ての製品に十分な予算が割り当てられているとは限りません。  
@@ -36,29 +36,20 @@ Meilisearch とは、Meili 社および多くの Contributor によって開発�
 
 今回のケースでは、できるだけ低コストで全文検索エンジンを導入したいというニーズを叶えられるかもしれない一つの選択を提示します。
 
-
 ## Usage 
 
 サーバーレス環境作成のための手順をいくつかのステップに分けると以下のようになります。
 また、検索対象となるデータはローカル(非 Lambda 環境)で作成する必要があります。
 
-1. Meilisearch 実行環境の Dockerfile を作成します。  
-2. 1 で作成した Dockerfile に Lambda Web Adapter を適用し、build image します。
+1. Meilisearch 実行環境の [Dockerfile](./prod/Dockerfile) を作成します。  
+2. 1 で作成した [Dockerfile](./prod/Dockerfile) に Lambda Web Adapter を適用し、build image します。
+    - 環境設定の類を設定する
 3. 2 で作成した Dockerimage を AWS Lambda にデプロイします。
 4. AWS Lambda に Amazon EFS をマウントします。
 5. 4 でマウントした EFS のアクセスポイントに data.ms をインポートします。
+    - インポート方法はなんでも構いません
 
-### Docker 
-
-Meilisearch の実行環境を構築します。  
-今回のプロジェクトの
-
-### EFS
-
-### Lambda 
-
-
-## Cannot in this case 
+## Not suitable case 
 
 以下のようなケースでは、今回の実装は向いていないと考えられます。  
 理由は後述します。
@@ -82,6 +73,8 @@ Meilisearch の実行環境を構築します。
     - etc.
 
 - SSG で構築されたサイト
+
+## Suitable or Not suitable 
 
 
 
