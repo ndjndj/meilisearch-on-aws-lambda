@@ -2,6 +2,9 @@ FROM getmeili/meilisearch:v1.5 as meili
 
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.7.0 /lambda-adapter /opt/extensions/lambda-adapter
 
+# because meilisearch is already running, terminate the process once
+CMD ["pkill", "/bin/meilisearch"]
+
 FROM alpine:3.16
 
 # for Lambda Web Adapter 
