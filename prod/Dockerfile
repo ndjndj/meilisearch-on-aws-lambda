@@ -1,4 +1,4 @@
-FROM getmeili/meilisearch:v1.6 as meili
+FROM getmeili/meilisearch:v1.5 as meili
 
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.7.0 /lambda-adapter /opt/extensions/lambda-adapter
 
@@ -7,8 +7,8 @@ FROM alpine:3.16
 # for Lambda Web Adapter 
 ENV MEILI_HTTP_ADDR 0.0.0.0:8080 
 ENV MEILI_SERVER_PROVIDER docker
-ENV MEILI_DB_PATH <like /mnt/foo/data.ms>
-ENV MEILI_MASTER_KEY <any meilisearch-master-key>
+ENV MEILI_DB_PATH ./
+ENV MEILI_MASTER_KEY meilisearch-master-key
 
 RUN apk update --quiet \
     && apk add -q --no-cache libgcc tini curl
