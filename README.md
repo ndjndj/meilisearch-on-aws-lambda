@@ -77,4 +77,47 @@ The data to be searched must be created locally (in a non-Lambda environment).
     - Any import method is acceptable (DataSync, EC2, etc.) 
 7. Set the function URL or attach to API Gateway.
 
-## 
+## Utility 
+
+The point for discussion of practicality is the handling of data.ms used for persistent storage.  
+
+As an assumption, Meilisearch seems to update files directly under data.ms each time[^2],   
+in Lambda, a 'read-only file system error' occurs if you try to operate on a file placed outside of tmp[^3].  
+Therefore, data.ms/, where updates occur, cannot be placed anywhere other than directly under tmp.  
+
+On the other hand, if data.ms is placed directly under tmp, AWS Lambda will not be able to perform a good search because the file directly under tmp will disappear after some time[^4].
+
+With the above background, decided to use Amazon EFS.  
+In other words, I wanted to import data.ms into EFS and mount it on Lambda in order to keep data.ms persistent.  
+However, using this method would have meant loading the data.ms each time, which would have resulted in a very large amount of EFS loading.  
+
+The data we used in this case is about 120,000 documents with an index size of about 140 MiB. In this case, nearly 100 MB of reads were occurring each time.  
+Checking the EFS logs, it seems that reads are being performed at each cold start.  
+
+Also, it is not practical to use the write API via Meilisearch-Lambda, so it is necessary to update data.ms/ in EFS by a method other than Lambda[^5].  
+
+So, although succeeded in creating a Meilisearch environment with AWS Lambda, However, the cost increase was unavoidable due to the large amount of EFS reads.
+
+Initial goal was to reduce the cost of running Meilisearch, but it would likely be cheaper to host it on EC2 if it were to be used in its current state.  
+
+It may be possible if the site is individuals operated and accessed at a consistent time, or if the index size is not so large anymore.  
+
+[^2]: It's probably a lock system file, but I haven't been able to catch up on the timing of the update. It is based on the date the file was updated.  
+[^3]: This is AWS Lambda's specification, directories other than /tmp are not authorized to write.  
+[^4]: Occured Index not found error. There may be some room for verification. Is the data still in the image in the first place?  
+[^5]: It does not seem to be non-functional, but it is quite unstable, and the reflection is slow, or it is not reflected in the first place, or the API response is quite slow. As mentioned above, a mechanism that stacks write tasks in a queue and processes them in order may not be compatible with a server-less environment that terminates in a certain amount of time.  
+
+## Acknowledgment  
+
+Thanks to all the contributors to Meilisearch, 
+I wouldn't never have considered building serverless without Meilisearch's high search performance and memory saving capabilities.
+
+## PS 
+This time, we tried to increase the options for implementing a low-cost full-text search engine, but the results were indescribable.  
+
+However, there is a difference between trying and finding out that it is no good and being told it is no good from the start.  
+I was able to experience the performance of Meilisearch and learned the usefulness of the Lambda Web Adapter, which will eventually become part of my blood.  
+There is always room for improvement😊
+
+Comments and improvements are welcome!  
+[Issue](https://github.com/ndjndj/meilisearch-on-aws-lambda) or comment.
