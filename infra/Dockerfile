@@ -10,7 +10,7 @@ FROM alpine:3.16
 # for Lambda Web Adapter 
 ENV MEILI_HTTP_ADDR 0.0.0.0:8080 
 ENV MEILI_SERVER_PROVIDER docker
-ENV MEILI_DB_PATH ./
+ENV MEILI_DB_PATH /mnt/meili_data/data.ms
 ENV MEILI_MASTER_KEY meilisearch-master-key
 ENV MEILI_ENV production
 
