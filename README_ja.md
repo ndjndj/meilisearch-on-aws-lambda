@@ -1,5 +1,7 @@
 # Meilisearch on Amanzon Lambda
 
+[English](./README.md) | [日本語](./README_ja.md)
+
 Meilisearch のサーバーレス実行環境を AWS 上に構築するためのリポジトリです。  
 
 ## Abstract 

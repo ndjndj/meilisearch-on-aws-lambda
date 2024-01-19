@@ -1,4 +1,7 @@
 # Meilisearch on Amanzon Lambda
+
+[English](./README.md) | [日本語](./README_ja.md)
+
 Building a serverless full-text search environment for Meilisearch on AWS.
 
 ## Introduce 
