@@ -9,6 +9,7 @@ ENV MEILI_HTTP_ADDR 0.0.0.0:8080
 ENV MEILI_SERVER_PROVIDER docker
 ENV MEILI_DB_PATH ./
 ENV MEILI_MASTER_KEY meilisearch-master-key
+ENV MEILI_ENV production
 
 RUN apk update --quiet \
     && apk add -q --no-cache libgcc tini curl
