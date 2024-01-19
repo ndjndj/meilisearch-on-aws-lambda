@@ -1,6 +1,9 @@
+
 # Meilisearch on Amanzon Lambda
 
 [English](./README.md) | [日本語](./README_ja.md)
+
+**I wrote this text while using a translation tool and apologize if there are any mistakes or if the wording is impolite.**
 
 Building a serverless full-text search environment for Meilisearch on AWS.
 
@@ -49,10 +52,29 @@ An idea was that we might be able to fulfill the need for a full-text search eng
 I tried to build Meilisearch in a serverless environment.  
 
 FaaS such as AWS Lambda provide to many free tier. 
-I also hypothesized that Meilisearch latency would be enough for practical use even after taking into account the delay caused by cold start,  
+I also hypothesized that Meilisearch latency would be enough for practical use even after taking into account the delay caused by cold start[^1],  
 and I thought that be able to meet the need for a full-text search engine at the lowest possible cost (and also because it sounds interesting this challenge).
 
 
 reference: [Serverless search with Meilisearch and Google Cloud Run](https://blog.simonireilly.com/posts/serverless-search)
 
+[^1]: Not concerned about the fact that can't write documents. Meilisearch specification is to stack write tasks in a queue and then process them in order, so I think it would be difficult to do it serverless in the first place.
 
+## Usage 
+
+The procedure for creating a serverless environment can be broken down into several steps as follows.
+The data to be searched must be created locally (in a non-Lambda environment).
+
+1. Create a [Dockerfile](. /prod/Dockerfile) of the Meilisearch environment.  
+2. A created [Dockerfile](. /prod/Dockerfile) in step 1, apply Lambda Web Adapter and build image.
+    - Set up the environment settings.
+    - PORT must be set to 8080
+3. Push the Dockerimage created in step 2 to Amazon ECR. 
+4. Deploy the Dockerimage of step 3 to AWS Lambda.
+    - Lambda memory is 128 MB OK (may depend on index size) 
+5. Mount Amazon EFS on AWS Lambda. 
+6. Import data.ms to the EFS access point mounted in step 4.
+    - Any import method is acceptable (DataSync, EC2, etc.) 
+7. Set the function URL or attach to API Gateway.
+
+## 
