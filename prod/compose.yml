@@ -1,0 +1,12 @@
+version: '3.7' 
+
+services: 
+  search_engine:
+    build: 
+      context: .
+    ports:
+      - "9000:8080"
+    environment: 
+      - MEILI_ENV=development
+    volumes: 
+      - ./meili_data:/mnt/meili_data
