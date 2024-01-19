@@ -55,10 +55,7 @@ FaaS such as AWS Lambda provide to many free tier.
 I also hypothesized that Meilisearch latency would be enough for practical use even after taking into account the delay caused by cold start[^1],  
 and I thought that be able to meet the need for a full-text search engine at the lowest possible cost (and also because it sounds interesting this challenge).
 
-
 reference: [Serverless search with Meilisearch and Google Cloud Run](https://blog.simonireilly.com/posts/serverless-search)
-
-[^1]: Not concerned about the fact that can't write documents. Meilisearch specification is to stack write tasks in a queue and then process them in order, so I think it would be difficult to do it serverless in the first place.
 
 ## Usage 
 
@@ -102,11 +99,6 @@ Initial goal was to reduce the cost of running Meilisearch, but it would likely 
 
 It may be possible if the site is individuals operated and accessed at a consistent time, or if the index size is not so large anymore.  
 
-[^2]: It's probably a lock system file, but I haven't been able to catch up on the timing of the update. It is based on the date the file was updated.  
-[^3]: This is AWS Lambda's specification, directories other than /tmp are not authorized to write.  
-[^4]: Occured Index not found error. There may be some room for verification. Is the data still in the image in the first place?  
-[^5]: It does not seem to be non-functional, but it is quite unstable, and the reflection is slow, or it is not reflected in the first place, or the API response is quite slow. As mentioned above, a mechanism that stacks write tasks in a queue and processes them in order may not be compatible with a server-less environment that terminates in a certain amount of time.  
-
 ## Acknowledgment  
 
 Thanks to all the contributors to Meilisearch, 
@@ -121,3 +113,9 @@ There is always room for improvement😊
 
 Comments and improvements are welcome!  
 [Issue](https://github.com/ndjndj/meilisearch-on-aws-lambda) or comment.
+
+[^1]: Not concerned about the fact that can't write documents. Meilisearch specification is to stack write tasks in a queue and then process them in order, so I think it would be difficult to do it serverless in the first place.
+[^2]: It's probably a lock system file, but I haven't been able to catch up on the timing of the update. It is based on the date the file was updated.  
+[^3]: This is AWS Lambda's specification, directories other than /tmp are not authorized to write.  
+[^4]: Occured Index not found error. There may be some room for verification. Is the data still in the image in the first place?  
+[^5]: It does not seem to be non-functional, but it is quite unstable, and the reflection is slow, or it is not reflected in the first place, or the API response is quite slow. As mentioned above, a mechanism that stacks write tasks in a queue and processes them in order may not be compatible with a server-less environment that terminates in a certain amount of time.  
