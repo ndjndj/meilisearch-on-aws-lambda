@@ -1,4 +1,4 @@
-FROM getmeili/meilisearch:v1.5 as meili
+FROM getmeili/meilisearch:v1.6 as meili
 
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.7.0 /lambda-adapter /opt/extensions/lambda-adapter
 
