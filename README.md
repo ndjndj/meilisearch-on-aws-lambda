@@ -101,8 +101,8 @@ It may be possible if the site is individuals operated and accessed at a consist
 
 ## Acknowledgment  
 
-Thanks to all the contributors to Meilisearch, 
-I wouldn't never have considered building serverless without Meilisearch's high search performance and memory saving capabilities.
+Without Meilisearch's high search performance, I would never have considered building serverless. 
+Thanks to all the contributors to Meilisearch that give a great product and the opportunity to take on this challenge!
 
 ## PS 
 This time, we tried to increase the options for implementing a low-cost full-text search engine, but the results were indescribable.  
