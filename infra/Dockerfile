@@ -20,9 +20,9 @@ COPY --from=meili /bin/meilitool /bin/meilitool
 # going to symlink the meilisearch binary in the path to `/meilisearch`
 RUN ln -s /bin/meilisearch /meilisearch
 
-COPY ./meili_data /tmp/meili_data
+COPY ./meili_data /mnt/meili_data
 
-WORKDIR /tmp/meili_data
+WORKDIR /mnt/meili_data
 
 EXPOSE 8080/tcp
 
