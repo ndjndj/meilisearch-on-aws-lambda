@@ -7,7 +7,7 @@
 
 Building a serverless full-text search environment for Meilisearch on AWS.
 
-## Introduce 
+## Abstract 
 
 - Meilisearch environment was able to build and run on AWS Lambda using the Lambda Web Adapter.
 - Amazon EFS was used to store the indexes.
